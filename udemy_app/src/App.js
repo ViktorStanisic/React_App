@@ -1,37 +1,49 @@
-import { useState, useEffect } from "react";
+import {  useState } from "react";
 import TestComponent from "./components/testcomponent";
 function App() {
-  const [data, setData] = useState([
-    { title: "TEST", id: 1 },
-    { title: "TEST1", id: 2 },
 
+  const [data, setData] = useState([
+    // { title: "TEST", id: 1 },
+    // { title: "TEST1", id: 2 },
   ]);
 
+  // useEffect(()=> {
+  //   setData({title: "DODADENO", id: 3})
+  // },[setData])
 
-  // const changeData = useCallback(() => {
-  //   setData("testValue");
-  // },[]);
+   function addTodo(event) {
+    event.preventDefault();
+    const { todo } = event.target.elements
 
-  useEffect(() => {
-    // Update the document title using the browser API
-     changeData();
-  },[]);
-  let changeData = () => {
-    let currentElement = data.slice(-1)[0] 
+    if(data.length > 0) {
+    const currentElement = data.slice(-1)[0]
+    setData([...data, { title: `${todo.value}`, id: currentElement.id + 1 }]);
 
-    setData([...data, { title: `${currentElement.title} testValue`, id: currentElement.id + 1 }]);
-  };
+   }else {
+    setData([...data, { title: `${todo.value}`, id:  1 }]);
 
+
+   }
+
+    console.log(data)
+  }
 
 
   return (
-    <div>
-      <TestComponent inputData={data} /> 
-
-
-    
-
-      <button onClick={() => changeData()}>Change Data</button>
+    <div style={{
+      display: 'flex',
+      alignItems: 'start',
+      justifyContent: 'start',
+      flexDirection: 'column',
+    }}>
+      <form onSubmit={addTodo}>
+        <label>Enter something:</label>
+        <input type="text" id="todo" />
+        <input type="submit" />
+      </form>
+      <div> 
+        { <TestComponent inputData={data} setData={setData} /> }
+      </div>
     </div>
   );
 }
