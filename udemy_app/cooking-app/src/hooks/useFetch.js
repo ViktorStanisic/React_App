@@ -9,7 +9,7 @@ export const useFetch = (url, method = "GET") => {
   const postData = (postData) => {
     setOptions({
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(postData)
     })
   }
@@ -19,10 +19,10 @@ export const useFetch = (url, method = "GET") => {
 
     const fetchData = async (fetchOptions) => {
       setIsPending(true)
-      
+
       try {
         const res = await fetch(url, { ...fetchOptions, signal: controller.signal })
-        if(!res.ok) {
+        if (!res.ok) {
           throw new Error(res.statusText)
         }
         const data = await res.json()
@@ -40,8 +40,8 @@ export const useFetch = (url, method = "GET") => {
       }
     }
     //Proverka dali e get ili e post za post da ima body
-    if(method === "GET") fetchData()
-    if(method === "POST" && options) fetchData(options)
+    if (method === "GET") fetchData()
+    if (method === "POST" && options) fetchData(options)
 
 
     return () => {

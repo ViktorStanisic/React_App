@@ -44,6 +44,12 @@ export default function Create() {
     }
   }, [data])
 
+  // useEffect(() => {
+  //   if(data){
+  //     history.push("/")
+  //   }
+  // })
+
   return (
     <div className='create'>
       <h2 className='page-title'>Add a New Recipe</h2>
